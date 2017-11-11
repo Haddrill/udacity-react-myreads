@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class ListBooks extends Component {
   
@@ -160,8 +161,10 @@ class ListBooks extends Component {
               </div>
             </div>
             <div className="open-search">
-          		// TODO: Create link to search page route
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+            <Link 
+          		to='/search'
+          		className='search-book'
+          	>Add a book</Link>
             </div>
       	</div>)
 	}
