@@ -25,6 +25,7 @@ class Search extends Component {
       	const {books} = this.props
       	const {query} = this.state
 		let showingBooks = (books) ? books : []
+		// TODO: Modify check to compare with previous query
 		if (query && this.state.books.length === 0) {
           	BooksAPI.search(query, 20).then(results => {
         		showingBooks = (results.length) ? results: [];
@@ -54,8 +55,8 @@ class Search extends Component {
 			<div className="bookshelf-books">
               <ol className="books-grid">
                   {this.state.books.map((book) => (
-                      <li key={Math.random()}>
-                          <Book title={book.title} author={book.authors} url={book.imageLinks.smallThumbnail} />
+                      <li key={book.id}>
+                          <Book title={book.title} author={book.authors} url={book.imageLinks.smallThumbnail} id={book.id} />
                       </li>
                    ))}
               </ol>
