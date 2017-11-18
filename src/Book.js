@@ -10,14 +10,15 @@ class Book extends React.Component {
     }
 
 	render() {
+      let author = (this.props.authors && this.props.authors.isArray()) ? this.props.authors.join(", ") : '';
       return(
       	<div className="book">
         	<div className="book-top">
-            	<div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url("this.props.title")' }}></div>
-         		<BookChanger />
-             	<div className="book-title">{this.props.title}</div>
-             	<div className="book-authors">{this.props.authors.join(", ")}</div>
+            	<div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url(' + this.props.url + ')' }}></div>
+				<BookChanger />
          	</div>
+			<div className="book-title">{this.props.title}</div>
+            <div className="book-authors">{author}</div>
          </div>
         )
     }

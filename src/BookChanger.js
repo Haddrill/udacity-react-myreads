@@ -2,6 +2,7 @@ import React from 'react'
 
 class BookChanger extends React.Component {
 	render () {
+		// TODO: Add changer functionality.
     	return(
         	<div className="book-shelf-changer">
               <select>
