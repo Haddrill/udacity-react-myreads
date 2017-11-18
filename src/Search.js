@@ -14,8 +14,7 @@ class Search extends Component {
 	state = {
     	query: '',
       	loading: false,
-      	// books: [{title: 'book 1', authors: ["James Joyce"], imageLinks: {smallThumbnail: ""}}]
-      books: []
+      	books: []
     }
 	updateQuery = (query) => {
     	this.setState({query: query.trim()}) 
