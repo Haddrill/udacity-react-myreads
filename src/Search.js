@@ -6,19 +6,33 @@ import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 import { RingLoader } from 'react-spinners';
+import AlertContainer from 'react-alert'
 
 class Search extends Component {
   	static propTypes = {
     	books: PropTypes.array
+    }
+	alertOptions = {
+      offset: 14,
+      position: 'bottom left',
+      theme: 'dark',
+      time: 5000,
+      transition: 'scale'
     }
 	state = {
     	query: '',
       	loading: false,
       	books: []
     }
+	success = () => {
+      this.msg.show('Book Added', {
+        time: 2000,
+        type: 'success',
+      })
+    }
 	save(shelf) {
     	BooksAPI.update({id: shelf.target.id}, shelf.target.value).then(results => {
-			// TODO: Flash message that book was successfully saved to shelf.
+          	this.success()
         })
     }
 	updateQuery = (query) => {
@@ -54,6 +68,7 @@ class Search extends Component {
           />
   		</div>
 	</div>
+	<AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
 	<div className="list-books-content">
 		<div className="bookshelf">
           <div className="search-books-results">
