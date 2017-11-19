@@ -16,6 +16,11 @@ class Search extends Component {
       	loading: false,
       	books: []
     }
+	save(shelf) {
+    	BooksAPI.update({id: shelf.target.id}, shelf.target.value).then(results => {
+			// TODO: Flash message that book was successfully saved to shelf.
+        })
+    }
 	updateQuery = (query) => {
     	this.setState({query: query.trim()}) 
       	this.setState({loading: true})
@@ -56,7 +61,12 @@ class Search extends Component {
               <ol className="books-grid">
                   {this.state.books.map((book) => (
                       <li key={book.id}>
-                          <Book title={book.title} author={book.authors} url={book.imageLinks.smallThumbnail} id={book.id} />
+                          <Book 
+							title={book.title}
+							author={book.authors}
+							url={book.imageLinks.smallThumbnail}
+							handler={this.save.bind(this)}
+							id={book.id} />
                       </li>
                    ))}
               </ol>

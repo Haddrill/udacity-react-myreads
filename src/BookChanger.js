@@ -1,31 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import * as BooksAPI from './BooksAPI'
 
 class BookChanger extends React.Component {
   	static propTypes = {
-      	id: PropTypes.string.isRequired
+      	id: PropTypes.string.isRequired,
+      	handler: PropTypes.func
     }
   	state = {
     	value: ''
     }
-  	change(shelf) {
-    	// TODO: verify id is valid
-      	// TODO: verify target value is valid
-    	BooksAPI.update({id: shelf.target.id}, shelf.target.value).then(result => {
-        	// TODO: Check if result was successful.
-        })
-    }
+  	
 	render () {
-		// TODO: Add changer functionality.
     	return(
 			<div className="book-shelf-changer">
           		<select 
-          			onChange={this.change}
+          			onChange={this.props.handler}
           			value={this.state.value}
              		id={this.props.id}
           		>
-                  <option value="none" disabled>Move to...</option>
+                  <option value="none">Move to...</option>
                   <option value="currentlyReading">Currently Reading</option>
                   <option value="wantToRead">Want to Read</option>
                   <option value="read">Read</option>

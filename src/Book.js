@@ -7,7 +7,8 @@ class Book extends React.Component {
       	id: PropTypes.string.isRequired,
     	title: PropTypes.string,
       	authors: PropTypes.array,
-      	url: PropTypes.string
+      	url: PropTypes.string,
+      	handler: PropTypes.func
     }
 
 	render() {
@@ -16,7 +17,7 @@ class Book extends React.Component {
       	<div className="book">
         	<div className="book-top">
             	<div className="book-cover" style={{ width: 128, height: 188, backgroundImage: 'url(' + this.props.url + ')' }}></div>
-				<BookChanger id={this.props.id}/>
+				<BookChanger id={this.props.id} handler={this.props.handler} />
          	</div>
 			<div className="book-title">{this.props.title}</div>
             <div className="book-authors">{author}</div>

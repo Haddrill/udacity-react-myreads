@@ -12,16 +12,28 @@ class ListBooks extends Component {
           	read: {title: "Read", books: []}
     	}
     }
+	organise(results) {
+      	let shelves = this.state.shelves
+    	// iterate through each of the results and categorise into shelves
+        results.forEach((result, index) => {
+          shelves[result.shelf].books.push(result)
+        })
+		return shelves
+    }
+	update (results) {
+    	return this.setState({shelves: results, fetched: true})
+    }
+	save(shelf) {
+    	BooksAPI.update({id: shelf.target.id}, shelf.target.value).then(results => {
+          	// TODO: Remove book from current shelf, this is probably happening because of caching, or the update write is taking longer than the read in the getAll API call.
+          	this.setState({fetched: false})
+        })
+    }
 	render() {
       	let component = this;
-      	let shelves = this.state.shelves;
       	if (component.state.fetched === false) {
           BooksAPI.getAll().then(results => {
-              // iterate through each of the results and categorise into shelves
-              results.forEach((result, index) => {
-                  shelves[result.shelf].books.push(result)
-              })
-              component.setState({shelves: shelves, fetched: true})
+              component.setState({shelves: this.organise(results), fetched: true})
           })
 		}
 		
@@ -34,7 +46,7 @@ class ListBooks extends Component {
           		<div>
           		{Object.keys(this.state.shelves).map((key) => (
 					<div className="bookshelf">
-                       	<h2 className="bookshelf-title">{component.state.shelves[key].title}</h2>
+                       	<h2 className="books.books.bookshelf-title">{component.state.shelves[key].title}</h2>
                         <div className="bookshelf-books">
 							<ol className="books-grid">
 								{component.state.shelves[key].books.map((book) => (
@@ -43,6 +55,7 @@ class ListBooks extends Component {
 											title={book.title} 
 											author={book.authors} 
 											url={book.imageLinks.smallThumbnail} 
+          									handler={this.save.bind(this)}
 											id={book.id} />
                                 	</li>
 								))}
